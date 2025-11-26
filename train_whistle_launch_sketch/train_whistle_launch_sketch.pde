@@ -8,18 +8,33 @@ Train train;
 
 //declare a SoundFile
 SoundFile whistle;
+SoundFile ding;
+
+//declare some timer variables
+float timerLength = 50; //this number to count up to
+float timerValue = 0;
+
 
 void setup() {
   size(400, 400);
+  background(255);
   //load the sound effect from the data folder
-whistle = new SoundFile(this, "train-whistle.wav");
+  whistle = new SoundFile(this, "train-whistle.wav");
+  ding = new SoundFile(this, "pling.wav");
   train = new Train(random(100, 300), random(0.5, 2));
 }
 
 void draw() {
-  background(255);
-
-  train.update();
+  
+  //make timer count
+  timerValue +=1;
+  if (timerValue > timerLength){
+    timerValue = 0;
+    //do the thing now time is up!
+    background(random(255), random(255), random(255));
+    ding.play();
+  }
+    train.update();
 }
 
 void keyPressed(){
